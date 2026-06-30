@@ -1,0 +1,15 @@
+# Godot 4+ specific ignores
+.godot/
+!/.godot/extension_list.cfg
+*.translation
+
+# Exported games
+export_presets.cfg
+/exports/
+/builds/
+
+# OS/Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
