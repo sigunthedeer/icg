@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52fj1"]
 
 [node name="Cat" type="CharacterBody2D" unique_id=1990045839]
-position = Vector2(576, 324)
+position = Vector2(578, 322)
 script = ExtResource("1_52fj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1014856102]
