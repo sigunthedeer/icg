@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://co7igxetawhnq"]
 
 [ext_resource type="Script" uid="uid://dushgtrm6gqda" path="res://puzzle.gd" id="1_77j1r"]
-[ext_resource type="Texture2D" uid="uid://byj800dvmw4w8" path="res://icon.svg" id="2_hgotr"]
+[ext_resource type="Texture2D" uid="uid://dtugcqfavv12v" path="res://cat/cat stand right.png" id="2_77j1r"]
 
 [node name="Puzzle" type="Node2D" unique_id=368240095]
 position = Vector2(571, 301)
 script = ExtResource("1_77j1r")
 
 [node name="Cat" type="Sprite2D" parent="." unique_id=790380333]
-texture = ExtResource("2_hgotr")
+position = Vector2(-1.9999847, 0)
+scale = Vector2(0.07, 0.071)
+texture = ExtResource("2_77j1r")

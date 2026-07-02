@@ -29,9 +29,10 @@ func _ready() -> void:
 	start_cat = cat_cell
 	start_pots = pots.duplicate()
 	
+	var pot_tex := load("res://icon.svg")
 	for i in pots.size():
 		var s := Sprite2D.new()
-		s.texture = cat.texture
+		s.texture = pot_tex
 		s.scale = Vector2(0.4, 0.4)
 		s.modulate = Color(0.5, 1.0, 0.5)
 		add_child(s)
