@@ -17,10 +17,18 @@ var walls: Array[Vector2i] = [
 	Vector2i(6, 5), Vector2i(7, 5),   # ground blocks
 ]
 
+var start_cat: Vector2i
+var start_pots: Array[Vector2i]
+var moves := 0
+
 @onready var cat: Sprite2D = $Cat
 var pot_sprites: Array[Sprite2D] = []
+var move_label: Label
 
 func _ready() -> void:
+	start_cat = cat_cell
+	start_pots = pots.duplicate()
+	
 	for i in pots.size():
 		var s := Sprite2D.new()
 		s.texture = cat.texture
@@ -28,9 +36,19 @@ func _ready() -> void:
 		s.modulate = Color(0.5, 1.0, 0.5)
 		add_child(s)
 		pot_sprites.append(s)
+		
+	move_label = Label.new() # on-screen counter
+	move_label.position = Vector2(8, 8)
+	add_child(move_label)
+	
 	_refresh()
 	
 func _unhandled_input(event: InputEvent) -> void:
+	# R = reset the puzzle.
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		_reset()
+		return
+		
 	# one key press = one step. Fires only on the frame the key goes down.
 	var step := Vector2i.ZERO
 	if event.is_action_pressed("ui_right"): step = Vector2i(1, 0)
@@ -52,6 +70,7 @@ func _try_move(step: Vector2i) -> void:
 			return # wall, edge or another pot behind -> can't push
 		pots[pot_index] = behind
 	cat_cell = target
+	moves += 1 # count each real step
 	_refresh()
 	_check_win()
 
@@ -60,6 +79,13 @@ func _blocked(c: Vector2i) -> bool:
 	if c.x < 0 or c.x >= COLS or c.y < 0 or c.y >= ROWS:
 		return true
 	return walls.has(c)
+	
+func _reset() -> void:
+	cat_cell = start_cat
+	pots = start_pots.duplicate()
+	moves = 0
+	modulate = Color.WHITE # clear the win flash
+	_refresh()
 	
 func _check_win() -> void:
 	if pots[0] == goal:
@@ -81,8 +107,8 @@ func _draw() -> void:
 		draw_line(Vector2(x * CELL_SIZE, 0), Vector2(x * CELL_SIZE, ROWS * CELL_SIZE), line)
 	for y in range(ROWS + 1):
 		draw_line(Vector2(0, y * CELL_SIZE), Vector2(COLS * CELL_SIZE, y * CELL_SIZE), line)
-	for w in walls:                       # walls = the building, solid blocks
+	for w in walls:
 		var p := _cell_to_px(w) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
 		draw_rect(Rect2(p, Vector2(CELL_SIZE, CELL_SIZE)), Color(0.45, 0.4, 0.42, 0.9), true)
 	var g := _cell_to_px(goal) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)  # goal ledge
+	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)
