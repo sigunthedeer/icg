@@ -61,6 +61,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		_try_move(step)
 		
 func _try_move(step: Vector2i) -> void:
+	# Face the way we walk (only on left/right moves.)
+	if step.x > 0:
+		cat.flip_h = false # walking right
+	elif step.x < 0:
+		cat.flip_h = true # walking left
 	var target := cat_cell + step
 	if _blocked(target): # off-board OR a wall
 		return
