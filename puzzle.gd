@@ -7,12 +7,18 @@ const ROWS := 6
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
 # Each: where the cat starts, its pots, the goal tile, and the walls.
 const LEVELS := [
-	{ "cat": Vector2i(2,5), "pots": [Vector2i(2,4)], "goal": Vector2i(2,1),
-	  "walls": [Vector2i(5,5), Vector2i(5,4), Vector2i(6,5)] },
-	{ "cat": Vector2i(0,3), "pots": [Vector2i(1,3)], "goal": Vector2i(6,3),
-	  "walls": [Vector2i(3,5), Vector2i(4,5), Vector2i(3,0), Vector2i(4,0)] },
-	{ "cat": Vector2i(3,5), "pots": [Vector2i(3,4)], "goal": Vector2i(3,0),
-	  "walls": [Vector2i(0,5), Vector2i(1,5), Vector2i(6,0), Vector2i(7,0), Vector2i(6,1), Vector2i(7,1)] },
+	{ "cat": Vector2i(2,2), "pots": [Vector2i(1,2)], "goal": Vector2i(4,5),
+	  "walls": [Vector2i(0,5), Vector2i(2,0), Vector2i(4,4), Vector2i(7,5)] },
+	{ "cat": Vector2i(4,3), "pots": [Vector2i(3,3)], "goal": Vector2i(6,2),
+	  "walls": [Vector2i(1,1), Vector2i(3,4), Vector2i(4,2), Vector2i(6,3), Vector2i(7,4)] },
+	{ "cat": Vector2i(3,1), "pots": [Vector2i(2,4)], "goal": Vector2i(0,0),
+	  "walls": [Vector2i(0,3), Vector2i(2,0), Vector2i(2,5), Vector2i(4,1), Vector2i(6,4)] },
+	{ "cat": Vector2i(2,0), "pots": [Vector2i(3,2)], "goal": Vector2i(7,2),
+	  "walls": [Vector2i(1,1), Vector2i(3,1), Vector2i(4,0), Vector2i(5,2), Vector2i(7,4)] },
+	{ "cat": Vector2i(1,2), "pots": [Vector2i(2,3)], "goal": Vector2i(7,3),
+	  "walls": [Vector2i(0,5), Vector2i(1,1), Vector2i(2,2), Vector2i(2,5), Vector2i(4,4), Vector2i(5,0), Vector2i(5,3), Vector2i(7,1)] },
+	{ "cat": Vector2i(1,2), "pots": [Vector2i(6,3)], "goal": Vector2i(2,0),
+	  "walls": [Vector2i(0,5), Vector2i(1,4), Vector2i(2,1), Vector2i(3,4), Vector2i(4,0), Vector2i(4,4), Vector2i(5,5), Vector2i(6,2), Vector2i(7,2)] },
 ]
 
 var level_index := 0
@@ -71,9 +77,9 @@ func _update_journey() -> void:
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if solved:
-		if event.is_action_pressed("ui_accept") and level_index + 1 < LEVELS.size():
-			_load_level(level_index + 1)
-		elif event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
+		# Levels auto-advance after a short beat. On the final screen, R replays.
+		if level_index + 1 >= LEVELS.size() \
+		and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 			_load_level(0)
 		return
 
@@ -119,7 +125,10 @@ func _check_win() -> void:
 		modulate = Color(1, 1, 0.7)
 		_update_journey()
 		if level_index + 1 < LEVELS.size():
-			info_label.text = "The cat eats. 🐟  One leg closer.  (Space → on)"
+			info_label.text = "The cat eats. 🐟  One leg closer…"
+			await get_tree().create_timer(1.0).timeout   # the pause before advancing
+			if solved and level_index + 1 < LEVELS.size():  # still solved? then go
+				_load_level(level_index + 1)
 		else:
 			info_label.text = "The cat eats, and Galata comes into view. 🐾🗼  (R to replay)"
 
