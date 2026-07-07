@@ -43,6 +43,9 @@ func _ready() -> void:
 	journey_label.position = Vector2(8, 34)
 	add_child(journey_label)
 	_load_level(0)
+	# Center the whole board in the window.
+	var board_px := Vector2(COLS, ROWS) * CELL_SIZE
+	position = (get_viewport_rect().size - board_px) * 0.5
 
 func _load_level(i: int) -> void:
 	level_index = i
