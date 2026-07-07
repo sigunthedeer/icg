@@ -3,6 +3,7 @@ extends Node2D
 const CELL_SIZE := 64
 const COLS := 8
 const ROWS := 6
+const MOVE_TIME := 0.10   # seconds for a sprite to glide one cell
 
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
 # Each: where the cat starts, its pots, the goal tile, and the walls.
@@ -26,6 +27,7 @@ var cat_cell: Vector2i
 var pots: Array = []
 var goal: Vector2i
 var walls: Array = []
+var _tween: Tween
 var moves := 0
 var solved := false
 var legs_done := 0
@@ -71,7 +73,8 @@ func _load_level(i: int) -> void:
 		pot_sprites.append(s)
 
 	cat.flip_h = false
-	_refresh()
+	_snap_positions()
+	_refresh_ui()
 	
 func _update_journey() -> void:
 	var filled := "🐾".repeat(legs_done)
@@ -113,7 +116,8 @@ func _try_move(step: Vector2i) -> void:
 		pots[pot_index] = behind
 	cat_cell = target
 	moves += 1
-	_refresh()
+	_animate_positions()
+	_refresh_ui()
 	_check_win()
 
 func _blocked(c: Vector2i) -> bool:
@@ -135,14 +139,24 @@ func _check_win() -> void:
 		else:
 			info_label.text = "The cat eats, and Galata comes into view. 🐾🗼  (R to replay)"
 
-func _refresh() -> void:
-	cat.position = _cell_to_px(cat_cell)
-	for i in pots.size():
-		pot_sprites[i].position = _cell_to_px(pots[i])
+func _refresh_ui() -> void:
 	if not solved:
 		info_label.text = "Level %d / %d    Moves: %d    (R reset)" % [level_index + 1, LEVELS.size(), moves]
 	_update_journey()
 	queue_redraw()
+
+func _snap_positions() -> void:            # instant (used on level load)
+	cat.position = _cell_to_px(cat_cell)
+	for i in pots.size():
+		pot_sprites[i].position = _cell_to_px(pots[i])
+
+func _animate_positions() -> void:         # glide (used on each move)
+	if _tween and _tween.is_running():
+		_tween.kill()
+	_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_tween.tween_property(cat, "position", _cell_to_px(cat_cell), MOVE_TIME)
+	for i in pots.size():
+		_tween.tween_property(pot_sprites[i], "position", _cell_to_px(pots[i]), MOVE_TIME)
 
 func _cell_to_px(c: Vector2i) -> Vector2:
 	return Vector2(c) * CELL_SIZE + Vector2(CELL_SIZE, CELL_SIZE) * 0.5
