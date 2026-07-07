@@ -33,7 +33,7 @@ var solved := false
 var legs_done := 0
 var journey_label: Label
 
-@onready var cat: Sprite2D = $Cat
+@onready var cat: AnimatedSprite2D = $Cat
 var pot_sprites: Array = []
 var info_label: Label
 
@@ -48,6 +48,7 @@ func _ready() -> void:
 	# Center the whole board in the window.
 	var board_px := Vector2(COLS, ROWS) * CELL_SIZE
 	position = (get_viewport_rect().size - board_px) * 0.5
+	cat.play("default")
 
 func _load_level(i: int) -> void:
 	level_index = i
