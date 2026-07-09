@@ -11,7 +11,8 @@ const BG_OFFSET := Vector2(-329, -135)
 # Each: where the cat starts, its pots, the goal tile, and the walls.
 const LEVELS := [
 	{ "cat": Vector2i(2,2), "pots": [Vector2i(1,2)], "goal": Vector2i(4,5),
-	  "walls": [Vector2i(0,5), Vector2i(2,0), Vector2i(4,4), Vector2i(7,5)] },
+	  "walls": [Vector2i(0,5), Vector2i(2,0), Vector2i(7,5)],
+	  "furniture": [ {"cell": Vector2i(3,3), "w": 2} ] },
 	{ "cat": Vector2i(4,3), "pots": [Vector2i(3,3)], "goal": Vector2i(6,2),
 	  "walls": [Vector2i(1,1), Vector2i(3,4), Vector2i(4,2), Vector2i(6,3), Vector2i(7,4)] },
 	{ "cat": Vector2i(3,1), "pots": [Vector2i(2,4)], "goal": Vector2i(0,0),
@@ -38,6 +39,7 @@ var meow_sfx: AudioStreamPlayer
 var win_sfx: AudioStreamPlayer
 var fail_sfx: AudioStreamPlayer
 var _prev_cell: Vector2i
+var furniture_sprites: Array = []
 
 @onready var cat: AnimatedSprite2D = $Cat
 var pot_sprites: Array = []
@@ -80,7 +82,7 @@ func _load_level(i: int) -> void:
 	cat_cell = data["cat"]
 	pots = data["pots"].duplicate()
 	goal = data["goal"]
-	walls = data["walls"]
+	walls = data["walls"].duplicate()      # was: walls = data["walls"]]
 	moves = 0
 	solved = false
 	modulate = Color.WHITE
@@ -90,11 +92,30 @@ func _load_level(i: int) -> void:
 	pot_sprites.clear()
 	for j in pots.size():
 		var s := Sprite2D.new()
-		s.texture = load("res://icon.svg")     # green placeholder pot (her art later)
-		s.scale = Vector2(0.4, 0.4)
-		s.modulate = Color(0.5, 1.0, 0.5)
+		s.texture = load("res://pot.png")     # was icon.svg
+		s.scale = Vector2(0.5, 0.5)           # 108px art → ~54px, fits a cell
 		add_child(s)
 		pot_sprites.append(s)
+		
+	# Furniture: immovable multi-tile plants (art + collision).
+	for s in furniture_sprites:
+		s.queue_free()
+	furniture_sprites.clear()
+	for item in data.get("furniture", []):
+		var c: Vector2i = item["cell"]
+		var wdt: int = item["w"]
+		for dx in range(wdt):                       # block every cell it covers
+			var wc := Vector2i(c.x + dx, c.y)
+			if not walls.has(wc):
+				walls.append(wc)
+		var spr := Sprite2D.new()                   # one wide image across them
+		spr.texture = load("res://plant_wall.png")
+		var target_w := wdt * CELL_SIZE
+		spr.scale = Vector2.ONE * (float(target_w) / spr.texture.get_width())
+		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
+		spr.z_index = -1                            # above floor, below cat
+		add_child(spr)
+		furniture_sprites.append(spr)
 
 	cat.flip_h = false
 	_snap_positions()
@@ -129,8 +150,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		_try_move(step)
 
 func _try_move(step: Vector2i) -> void:
-	if step.x > 0: cat.flip_h = false
-	elif step.x < 0: cat.flip_h = true
+	# Face the direction of movement (rotation for up/down, flip for left/right).
+	if step.x > 0:
+		cat.flip_h = false
+		cat.rotation_degrees = 0
+	elif step.x < 0:
+		cat.flip_h = true
+		cat.rotation_degrees = 0
+	elif step.y < 0:                 # up
+		cat.flip_h = false
+		cat.rotation_degrees = -90
+	elif step.y > 0:                 # down
+		cat.flip_h = false
+		cat.rotation_degrees = 90
 
 	var target := cat_cell + step
 	if _blocked(target):

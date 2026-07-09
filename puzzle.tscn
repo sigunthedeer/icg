@@ -30,5 +30,5 @@ position = Vector2(571, 301)
 script = ExtResource("1_77j1r")
 
 [node name="Cat" type="AnimatedSprite2D" parent="." unique_id=654932171]
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_2bgme")
