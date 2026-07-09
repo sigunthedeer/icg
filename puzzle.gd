@@ -1,9 +1,11 @@
 extends Node2D
 
 const CELL_SIZE := 64
-const COLS := 8
-const ROWS := 6
+const COLS := 11
+const ROWS := 7
 const MOVE_TIME := 0.10   # seconds for a sprite to glide one cell
+const BG_SCALE := 0.647
+const BG_OFFSET := Vector2(-329, -132)
 
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
 # Each: where the cat starts, its pots, the goal tile, and the walls.
@@ -57,6 +59,14 @@ func _ready() -> void:
 	journey_label = Label.new()
 	journey_label.position = Vector2(8, 34)
 	add_child(journey_label)
+	# Tu Anh's room, behind the grid.
+	var bg := Sprite2D.new()
+	bg.texture = load("res://bg.png")
+	bg.centered = false
+	bg.scale = Vector2(BG_SCALE, BG_SCALE)
+	bg.position = BG_OFFSET
+	bg.z_index = -10          # sits behind the grid, cat, and pots
+	add_child(bg)
 	_load_level(0)
 	# Center the whole board in the window.
 	var board_px := Vector2(COLS, ROWS) * CELL_SIZE
