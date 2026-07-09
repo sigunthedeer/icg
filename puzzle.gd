@@ -32,12 +32,24 @@ var moves := 0
 var solved := false
 var legs_done := 0
 var journey_label: Label
+var meow_sfx: AudioStreamPlayer
+var win_sfx: AudioStreamPlayer
+var fail_sfx: AudioStreamPlayer
 
 @onready var cat: AnimatedSprite2D = $Cat
 var pot_sprites: Array = []
 var info_label: Label
 
 func _ready() -> void:
+	meow_sfx = AudioStreamPlayer.new()
+	meow_sfx.stream = load("res://audio/meow.wav")
+	add_child(meow_sfx)
+	win_sfx = AudioStreamPlayer.new()
+	win_sfx.stream = load("res://audio/win.wav")
+	add_child(win_sfx)
+	fail_sfx = AudioStreamPlayer.new()
+	fail_sfx.stream = load("res://audio/fail.wav")
+	add_child(fail_sfx)
 	info_label = Label.new()
 	info_label.position = Vector2(8, 8)
 	add_child(info_label)
@@ -89,6 +101,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 			_load_level(0)
 		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_M:
+		meow_sfx.play()
+		return
 
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_R:
 		_load_level(level_index)
@@ -129,6 +144,7 @@ func _blocked(c: Vector2i) -> bool:
 func _check_win() -> void:
 	if pots[0] == goal:
 		solved = true
+		win_sfx.play()
 		legs_done = level_index + 1
 		modulate = Color(1, 1, 0.7)
 		_update_journey()
