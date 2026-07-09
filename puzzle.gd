@@ -4,8 +4,8 @@ const CELL_SIZE := 64
 const COLS := 11
 const ROWS := 7
 const MOVE_TIME := 0.10   # seconds for a sprite to glide one cell
-const BG_SCALE := 0.647
-const BG_OFFSET := Vector2(-329, -132)
+const BG_SCALE := 0.65
+const BG_OFFSET := Vector2(-329, -135)
 
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
 # Each: where the cat starts, its pots, the goal tile, and the walls.
@@ -210,13 +210,9 @@ func _cell_to_px(c: Vector2i) -> Vector2:
 	return Vector2(c) * CELL_SIZE + Vector2(CELL_SIZE, CELL_SIZE) * 0.5
 
 func _draw() -> void:
-	var line := Color(1, 1, 1, 0.12)
-	for x in range(COLS + 1):
-		draw_line(Vector2(x * CELL_SIZE, 0), Vector2(x * CELL_SIZE, ROWS * CELL_SIZE), line)
-	for y in range(ROWS + 1):
-		draw_line(Vector2(0, y * CELL_SIZE), Vector2(COLS * CELL_SIZE, y * CELL_SIZE), line)
+	# Grid lines removed — Tu Anh's floor tiles are the grid now.
 	for w in walls:
 		var p := _cell_to_px(w) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-		draw_rect(Rect2(p, Vector2(CELL_SIZE, CELL_SIZE)), Color(0.45, 0.4, 0.42, 0.9), true)
+		draw_rect(Rect2(p, Vector2(CELL_SIZE, CELL_SIZE)), Color(0.45, 0.4, 0.42, 0.55), true)
 	var g := _cell_to_px(goal) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)
+	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.35), true)
