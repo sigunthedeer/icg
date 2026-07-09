@@ -35,6 +35,7 @@ var journey_label: Label
 var meow_sfx: AudioStreamPlayer
 var win_sfx: AudioStreamPlayer
 var fail_sfx: AudioStreamPlayer
+var _prev_cell: Vector2i
 
 @onready var cat: AnimatedSprite2D = $Cat
 var pot_sprites: Array = []
@@ -130,6 +131,7 @@ func _try_move(step: Vector2i) -> void:
 		if _blocked(behind) or pots.find(behind) != -1:
 			return
 		pots[pot_index] = behind
+	_prev_cell = cat_cell
 	cat_cell = target
 	moves += 1
 	_animate_positions()
@@ -140,11 +142,25 @@ func _blocked(c: Vector2i) -> bool:
 	if c.x < 0 or c.x >= COLS or c.y < 0 or c.y >= ROWS:
 		return true
 	return walls.has(c)
+	
+func _shake(amount: float, time: float) -> void:
+	var start := position
+	var steps := 8
+	var t := create_tween()
+	for i in steps:
+		var off := Vector2(randf_range(-amount, amount), randf_range(-amount, amount))
+		t.tween_property(self, "position", start + off, time / steps)
+	t.tween_property(self, "position", start, time / steps)
 
 func _check_win() -> void:
 	if pots[0] == goal:
 		solved = true
 		win_sfx.play()
+		var winning_pot: Sprite2D = pot_sprites[0]
+		_shake(6.0, 0.25)
+		var t := create_tween()
+		t.tween_property(winning_pot, "scale", Vector2(0.6, 0.6), 0.12)
+		t.tween_property(winning_pot, "scale", Vector2(0.4, 0.4), 0.12)
 		legs_done = level_index + 1
 		modulate = Color(1, 1, 0.7)
 		_update_journey()
@@ -174,6 +190,11 @@ func _animate_positions() -> void:         # glide (used on each move)
 	_tween.tween_property(cat, "position", _cell_to_px(cat_cell), MOVE_TIME)
 	for i in pots.size():
 		_tween.tween_property(pot_sprites[i], "position", _cell_to_px(pots[i]), MOVE_TIME)
+	# little squash toward the direction of movement
+	var dir := Vector2(cat_cell - _prev_cell)
+	cat.scale = Vector2(0.35, 0.35)   # your normal scale
+	_tween.tween_property(cat, "scale", Vector2(0.4, 0.31), MOVE_TIME * 0.4)
+	_tween.chain().tween_property(cat, "scale", Vector2(0.35, 0.35), MOVE_TIME * 0.6)
 
 func _cell_to_px(c: Vector2i) -> Vector2:
 	return Vector2(c) * CELL_SIZE + Vector2(CELL_SIZE, CELL_SIZE) * 0.5
