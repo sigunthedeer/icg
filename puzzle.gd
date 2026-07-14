@@ -11,96 +11,96 @@ const BG_OFFSET := Vector2(-329, -135)
 # Each: where the cat starts, its pots, the goal tiles, and the furniture.
 # Levels 1-10 are one pot; 11-30 are two pots (order of operations matters).
 const LEVELS := [
-	{ "cat": Vector2i(3,4), "pots": [Vector2i(2,2)], "goals": [Vector2i(1,5)],
+	{ "cat": Vector2i(7,0), "pots": [Vector2i(5,2)], "goals": [Vector2i(1,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,4), "w": 2}, {"cell": Vector2i(6,2), "w": 2}, {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(4,2), "w": 2} ] },  # 20 moves
-	{ "cat": Vector2i(7,4), "pots": [Vector2i(6,1)], "goals": [Vector2i(3,5)],
+	  "furniture": [ {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(2,5), "w": 2}, {"cell": Vector2i(4,4), "w": 2} ] },  # 20 moves
+	{ "cat": Vector2i(2,3), "pots": [Vector2i(2,2)], "goals": [Vector2i(2,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,1), "w": 2}, {"cell": Vector2i(2,4), "w": 3}, {"cell": Vector2i(4,0), "w": 3}, {"cell": Vector2i(5,3), "w": 2} ] },  # 22 moves
-	{ "cat": Vector2i(1,2), "pots": [Vector2i(3,3)], "goals": [Vector2i(2,0)],
+	  "furniture": [ {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(4,0), "w": 2} ] },  # 23 moves
+	{ "cat": Vector2i(4,0), "pots": [Vector2i(2,1)], "goals": [Vector2i(3,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(4,5), "w": 2}, {"cell": Vector2i(3,0), "w": 3}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(1,4), "w": 3} ] },  # 24 moves
-	{ "cat": Vector2i(3,1), "pots": [Vector2i(2,1)], "goals": [Vector2i(7,2)],
+	  "furniture": [ {"cell": Vector2i(5,0), "w": 2}, {"cell": Vector2i(4,4), "w": 2}, {"cell": Vector2i(0,4), "w": 2}, {"cell": Vector2i(3,3), "w": 2}, {"cell": Vector2i(0,1), "w": 2} ] },  # 26 moves
+	{ "cat": Vector2i(2,3), "pots": [Vector2i(2,4)], "goals": [Vector2i(1,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,1), "w": 3}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(3,0), "w": 3} ] },  # 26 moves
-	{ "cat": Vector2i(6,0), "pots": [Vector2i(3,1)], "goals": [Vector2i(6,5)],
+	  "furniture": [ {"cell": Vector2i(5,1), "w": 2}, {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(4,5), "w": 2}, {"cell": Vector2i(6,4), "w": 2}, {"cell": Vector2i(0,3), "w": 2} ] },  # 29 moves
+	{ "cat": Vector2i(3,2), "pots": [Vector2i(5,1)], "goals": [Vector2i(6,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(1,5), "w": 2}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(2,0), "w": 3} ] },  # 28 moves
-	{ "cat": Vector2i(0,3), "pots": [Vector2i(4,4)], "goals": [Vector2i(1,0)],
+	  "furniture": [ {"cell": Vector2i(3,0), "w": 2}, {"cell": Vector2i(0,4), "w": 2}, {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(4,3), "w": 2}, {"cell": Vector2i(6,0), "w": 2} ] },  # 32 moves
+	{ "cat": Vector2i(1,5), "pots": [Vector2i(6,3)], "goals": [Vector2i(0,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(4,3), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },  # 31 moves
-	{ "cat": Vector2i(0,5), "pots": [Vector2i(5,1)], "goals": [Vector2i(6,5)],
+	  "furniture": [ {"cell": Vector2i(2,3), "w": 2}, {"cell": Vector2i(6,4), "w": 2}, {"cell": Vector2i(3,2), "w": 2}, {"cell": Vector2i(2,0), "w": 2} ] },  # 34 moves
+	{ "cat": Vector2i(0,5), "pots": [Vector2i(2,1)], "goals": [Vector2i(1,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(4,2), "w": 2} ] },  # 33 moves
-	{ "cat": Vector2i(0,0), "pots": [Vector2i(6,3)], "goals": [Vector2i(5,2)],
+	  "furniture": [ {"cell": Vector2i(1,5), "w": 2}, {"cell": Vector2i(1,0), "w": 2}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(5,3), "w": 2}, {"cell": Vector2i(4,2), "w": 2} ] },  # 37 moves
+	{ "cat": Vector2i(5,1), "pots": [Vector2i(2,4)], "goals": [Vector2i(0,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(4,4), "w": 3}, {"cell": Vector2i(1,2), "w": 2} ] },  # 34 moves
-	{ "cat": Vector2i(7,1), "pots": [Vector2i(5,3)], "goals": [Vector2i(3,4)],
+	  "furniture": [ {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(0,4), "w": 2}, {"cell": Vector2i(5,2), "w": 2} ] },  # 39 moves
+	{ "cat": Vector2i(2,0), "pots": [Vector2i(6,2)], "goals": [Vector2i(1,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(4,5), "w": 3}, {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(2,3), "w": 2}, {"cell": Vector2i(6,3), "w": 2} ] },  # 36 moves
-	{ "cat": Vector2i(4,3), "pots": [Vector2i(5,4)], "goals": [Vector2i(3,0)],
+	  "furniture": [ {"cell": Vector2i(4,4), "w": 2}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(5,1), "w": 2} ] },  # 41 moves
+	{ "cat": Vector2i(4,4), "pots": [Vector2i(6,1)], "goals": [Vector2i(1,4)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(1,4), "w": 3}, {"cell": Vector2i(5,5), "w": 2} ] },  # 39 moves
-	{ "cat": Vector2i(2,2), "pots": [Vector2i(5,2), Vector2i(5,3)], "goals": [Vector2i(7,4), Vector2i(0,1)],
+	  "furniture": [ {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(0,0), "w": 2}, {"cell": Vector2i(6,0), "w": 2}, {"cell": Vector2i(4,3), "w": 2}, {"cell": Vector2i(3,1), "w": 2} ] },  # 46 moves
+	{ "cat": Vector2i(3,5), "pots": [Vector2i(4,0), Vector2i(5,4)], "goals": [Vector2i(5,0), Vector2i(0,3)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(3,0), "w": 3}, {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },  # 22 moves
-	{ "cat": Vector2i(2,0), "pots": [Vector2i(6,4), Vector2i(1,4)], "goals": [Vector2i(3,2), Vector2i(7,3)],
+	  "furniture": [ {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(2,3), "w": 2}, {"cell": Vector2i(3,4), "w": 2}, {"cell": Vector2i(6,0), "w": 2}, {"cell": Vector2i(0,0), "w": 2} ] },  # 22 moves
+	{ "cat": Vector2i(3,5), "pots": [Vector2i(7,3), Vector2i(2,2)], "goals": [Vector2i(7,2), Vector2i(7,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(5,1), "w": 3} ] },  # 24 moves
-	{ "cat": Vector2i(0,5), "pots": [Vector2i(5,4), Vector2i(3,4)], "goals": [Vector2i(4,2), Vector2i(7,3)],
+	  "furniture": [ {"cell": Vector2i(4,4), "w": 2}, {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(3,1), "w": 2}, {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(0,4), "w": 2} ] },  # 24 moves
+	{ "cat": Vector2i(2,5), "pots": [Vector2i(3,3), Vector2i(2,1)], "goals": [Vector2i(4,0), Vector2i(5,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(3,5), "w": 2} ] },  # 26 moves
-	{ "cat": Vector2i(7,0), "pots": [Vector2i(6,2), Vector2i(6,3)], "goals": [Vector2i(2,1), Vector2i(0,1)],
+	  "furniture": [ {"cell": Vector2i(4,4), "w": 2}, {"cell": Vector2i(5,0), "w": 2}, {"cell": Vector2i(1,2), "w": 2} ] },  # 26 moves
+	{ "cat": Vector2i(4,0), "pots": [Vector2i(3,1), Vector2i(6,1)], "goals": [Vector2i(0,2), Vector2i(3,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(2,5), "w": 2}, {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(3,0), "w": 2} ] },  # 27 moves
-	{ "cat": Vector2i(1,0), "pots": [Vector2i(3,1), Vector2i(4,1)], "goals": [Vector2i(7,4), Vector2i(5,0)],
+	  "furniture": [ {"cell": Vector2i(4,4), "w": 2}, {"cell": Vector2i(3,2), "w": 2}, {"cell": Vector2i(6,5), "w": 2} ] },  # 29 moves
+	{ "cat": Vector2i(4,0), "pots": [Vector2i(3,2), Vector2i(2,1)], "goals": [Vector2i(6,2), Vector2i(3,1)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(5,1), "w": 3}, {"cell": Vector2i(2,4), "w": 2} ] },  # 29 moves
-	{ "cat": Vector2i(5,1), "pots": [Vector2i(3,3), Vector2i(3,4)], "goals": [Vector2i(0,0), Vector2i(3,1)],
+	  "furniture": [ {"cell": Vector2i(0,1), "w": 2}, {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(1,4), "w": 2} ] },  # 31 moves
+	{ "cat": Vector2i(3,3), "pots": [Vector2i(5,3), Vector2i(3,2)], "goals": [Vector2i(0,4), Vector2i(1,3)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(3,2), "w": 3} ] },  # 31 moves
-	{ "cat": Vector2i(5,1), "pots": [Vector2i(1,4), Vector2i(1,1)], "goals": [Vector2i(5,5), Vector2i(1,5)],
+	  "furniture": [ {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(1,4), "w": 2}, {"cell": Vector2i(1,1), "w": 2} ] },  # 33 moves
+	{ "cat": Vector2i(2,4), "pots": [Vector2i(6,2), Vector2i(4,4)], "goals": [Vector2i(0,0), Vector2i(0,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(6,1), "w": 2} ] },  # 33 moves
-	{ "cat": Vector2i(0,5), "pots": [Vector2i(1,4), Vector2i(6,4)], "goals": [Vector2i(5,2), Vector2i(3,0)],
+	  "furniture": [ {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(5,5), "w": 2} ] },  # 35 moves
+	{ "cat": Vector2i(1,3), "pots": [Vector2i(5,2), Vector2i(3,2)], "goals": [Vector2i(5,5), Vector2i(5,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,1), "w": 2}, {"cell": Vector2i(3,2), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(5,5), "w": 2} ] },  # 35 moves
-	{ "cat": Vector2i(5,4), "pots": [Vector2i(1,1), Vector2i(2,3)], "goals": [Vector2i(1,5), Vector2i(2,0)],
+	  "furniture": [ {"cell": Vector2i(3,1), "w": 2}, {"cell": Vector2i(6,4), "w": 2}, {"cell": Vector2i(5,3), "w": 2} ] },  # 37 moves
+	{ "cat": Vector2i(2,1), "pots": [Vector2i(6,4), Vector2i(0,1)], "goals": [Vector2i(7,3), Vector2i(0,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(3,5), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(6,5), "w": 2} ] },  # 36 moves
-	{ "cat": Vector2i(4,0), "pots": [Vector2i(6,4), Vector2i(1,2)], "goals": [Vector2i(5,0), Vector2i(3,2)],
+	  "furniture": [ {"cell": Vector2i(5,5), "w": 2}, {"cell": Vector2i(4,3), "w": 2}, {"cell": Vector2i(2,5), "w": 2}, {"cell": Vector2i(6,0), "w": 2} ] },  # 38 moves
+	{ "cat": Vector2i(5,5), "pots": [Vector2i(3,3), Vector2i(2,4)], "goals": [Vector2i(4,2), Vector2i(0,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(4,5), "w": 2} ] },  # 38 moves
-	{ "cat": Vector2i(6,3), "pots": [Vector2i(5,1), Vector2i(2,1)], "goals": [Vector2i(6,5), Vector2i(2,4)],
+	  "furniture": [ {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(3,5), "w": 2}, {"cell": Vector2i(1,3), "w": 2} ] },  # 39 moves
+	{ "cat": Vector2i(6,0), "pots": [Vector2i(2,2), Vector2i(4,1)], "goals": [Vector2i(0,4), Vector2i(4,4)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(6,0), "w": 2}, {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(3,3), "w": 2}, {"cell": Vector2i(1,3), "w": 2} ] },  # 40 moves
-	{ "cat": Vector2i(1,5), "pots": [Vector2i(4,4), Vector2i(5,4)], "goals": [Vector2i(2,2), Vector2i(1,4)],
+	  "furniture": [ {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(4,3), "w": 2}, {"cell": Vector2i(1,1), "w": 2}, {"cell": Vector2i(1,0), "w": 2} ] },  # 39 moves
+	{ "cat": Vector2i(3,3), "pots": [Vector2i(2,4), Vector2i(1,4)], "goals": [Vector2i(7,1), Vector2i(7,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(3,2), "w": 2} ] },  # 42 moves
-	{ "cat": Vector2i(0,1), "pots": [Vector2i(1,4), Vector2i(3,4)], "goals": [Vector2i(7,0), Vector2i(2,0)],
+	  "furniture": [ {"cell": Vector2i(4,3), "w": 2}, {"cell": Vector2i(6,5), "w": 2}, {"cell": Vector2i(3,1), "w": 2}, {"cell": Vector2i(0,3), "w": 2} ] },  # 40 moves
+	{ "cat": Vector2i(5,3), "pots": [Vector2i(1,2), Vector2i(1,4)], "goals": [Vector2i(4,1), Vector2i(0,1)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(6,2), "w": 2} ] },  # 43 moves
-	{ "cat": Vector2i(0,3), "pots": [Vector2i(3,3), Vector2i(5,3)], "goals": [Vector2i(4,0), Vector2i(3,0)],
+	  "furniture": [ {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(3,4), "w": 2} ] },  # 40 moves
+	{ "cat": Vector2i(0,5), "pots": [Vector2i(6,4), Vector2i(1,1)], "goals": [Vector2i(3,0), Vector2i(4,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,1), "w": 2}, {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(4,5), "w": 3}, {"cell": Vector2i(2,4), "w": 3} ] },  # 45 moves
-	{ "cat": Vector2i(3,4), "pots": [Vector2i(6,3), Vector2i(2,4)], "goals": [Vector2i(2,2), Vector2i(1,2)],
+	  "furniture": [ {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(3,4), "w": 2}, {"cell": Vector2i(6,5), "w": 2} ] },  # 41 moves
+	{ "cat": Vector2i(4,3), "pots": [Vector2i(1,2), Vector2i(2,1)], "goals": [Vector2i(6,5), Vector2i(4,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(1,3), "w": 3}, {"cell": Vector2i(6,1), "w": 2} ] },  # 46 moves
-	{ "cat": Vector2i(6,4), "pots": [Vector2i(2,4), Vector2i(1,0)], "goals": [Vector2i(4,0), Vector2i(0,2)],
+	  "furniture": [ {"cell": Vector2i(2,0), "w": 2}, {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(1,5), "w": 2}, {"cell": Vector2i(5,3), "w": 2} ] },  # 45 moves
+	{ "cat": Vector2i(1,2), "pots": [Vector2i(2,2), Vector2i(6,1)], "goals": [Vector2i(7,1), Vector2i(7,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,2), "w": 2}, {"cell": Vector2i(1,2), "w": 3}, {"cell": Vector2i(0,4), "w": 2} ] },  # 47 moves
-	{ "cat": Vector2i(5,0), "pots": [Vector2i(1,1), Vector2i(1,2)], "goals": [Vector2i(2,4), Vector2i(7,5)],
+	  "furniture": [ {"cell": Vector2i(4,2), "w": 2}, {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(4,1), "w": 2}, {"cell": Vector2i(4,0), "w": 2} ] },  # 46 moves
+	{ "cat": Vector2i(3,3), "pots": [Vector2i(1,4), Vector2i(4,2)], "goals": [Vector2i(0,3), Vector2i(0,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(6,1), "w": 2}, {"cell": Vector2i(3,4), "w": 3}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(2,3), "w": 3} ] },  # 52 moves
-	{ "cat": Vector2i(4,5), "pots": [Vector2i(5,3), Vector2i(5,4)], "goals": [Vector2i(5,1), Vector2i(6,0)],
+	  "furniture": [ {"cell": Vector2i(5,3), "w": 2}, {"cell": Vector2i(2,0), "w": 2}, {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(3,4), "w": 2}, {"cell": Vector2i(3,1), "w": 2} ] },  # 46 moves
+	{ "cat": Vector2i(1,4), "pots": [Vector2i(5,2), Vector2i(6,1)], "goals": [Vector2i(3,4), Vector2i(0,4)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(6,5), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(0,4), "w": 3} ] },  # 54 moves
-	{ "cat": Vector2i(7,2), "pots": [Vector2i(3,2), Vector2i(3,3)], "goals": [Vector2i(0,0), Vector2i(4,0)],
+	  "furniture": [ {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(6,2), "w": 2}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(2,5), "w": 2}, {"cell": Vector2i(3,2), "w": 2} ] },  # 51 moves
+	{ "cat": Vector2i(1,2), "pots": [Vector2i(4,3), Vector2i(6,2)], "goals": [Vector2i(2,5), Vector2i(3,3)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(4,1), "w": 3}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(5,3), "w": 3} ] },  # 56 moves
-	{ "cat": Vector2i(1,5), "pots": [Vector2i(4,1), Vector2i(6,1)], "goals": [Vector2i(7,3), Vector2i(6,4)],
+	  "furniture": [ {"cell": Vector2i(4,5), "w": 2}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(5,3), "w": 2}, {"cell": Vector2i(0,3), "w": 2} ] },  # 59 moves
+	{ "cat": Vector2i(7,3), "pots": [Vector2i(3,1), Vector2i(1,1)], "goals": [Vector2i(6,4), Vector2i(2,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,0), "w": 3}, {"cell": Vector2i(3,3), "w": 3}, {"cell": Vector2i(2,0), "w": 2} ] },  # 57 moves
+	  "furniture": [ {"cell": Vector2i(1,0), "w": 2}, {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(5,3), "w": 2}, {"cell": Vector2i(2,3), "w": 2} ] },  # 63 moves
 ]
 
 
@@ -205,7 +205,7 @@ func _load_level(i: int) -> void:
 		# Uniform scale — never distort her art. Fit inside the tile footprint.
 		var box := Vector2(wdt * CELL_SIZE, CELL_SIZE)     # the tiles it occupies
 		var art := Vector2(float(fw), float(fh))           # the art's real size
-		var fit: float = min(box.x / art.x, box.y / art.y)
+		var fit: float = box.x / art.x        # span the tiles exactly; uniform, so no distortion
 		spr.scale = Vector2(fit, fit)                      # SAME number both axes
 		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
 		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
