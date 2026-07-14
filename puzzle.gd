@@ -8,33 +8,106 @@ const BG_SCALE := 0.65
 const BG_OFFSET := Vector2(-329, -135)
 
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
-# Each: where the cat starts, its pots, the goal tile, and the walls.
+# Each: where the cat starts, its pots, the goal tiles, and the furniture.
+# Levels 1-10 are one pot; 11-30 are two pots (order of operations matters).
 const LEVELS := [
-	{ "cat": Vector2i(2,0), "pots": [Vector2i(3,1)], "goal": Vector2i(7,5),
+	{ "cat": Vector2i(3,4), "pots": [Vector2i(2,2)], "goals": [Vector2i(1,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(6,2), "w": 2}, {"cell": Vector2i(5,0), "w": 3} ] },
-	{ "cat": Vector2i(4,5), "pots": [Vector2i(2,4)], "goal": Vector2i(7,0),
+	  "furniture": [ {"cell": Vector2i(0,4), "w": 2}, {"cell": Vector2i(6,2), "w": 2}, {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(4,2), "w": 2} ] },  # 20 moves
+	{ "cat": Vector2i(7,4), "pots": [Vector2i(6,1)], "goals": [Vector2i(3,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(5,3), "w": 3}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(1,1), "w": 2} ] },
-	{ "cat": Vector2i(2,2), "pots": [Vector2i(3,3)], "goal": Vector2i(1,0),
+	  "furniture": [ {"cell": Vector2i(0,1), "w": 2}, {"cell": Vector2i(2,4), "w": 3}, {"cell": Vector2i(4,0), "w": 3}, {"cell": Vector2i(5,3), "w": 2} ] },  # 22 moves
+	{ "cat": Vector2i(1,2), "pots": [Vector2i(3,3)], "goals": [Vector2i(2,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(0,3), "w": 3}, {"cell": Vector2i(5,4), "w": 3} ] },
-	{ "cat": Vector2i(7,0), "pots": [Vector2i(2,4)], "goal": Vector2i(6,3),
+	  "furniture": [ {"cell": Vector2i(4,5), "w": 2}, {"cell": Vector2i(3,0), "w": 3}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(1,4), "w": 3} ] },  # 24 moves
+	{ "cat": Vector2i(3,1), "pots": [Vector2i(2,1)], "goals": [Vector2i(7,2)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(3,1), "w": 2}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },
-	{ "cat": Vector2i(3,2), "pots": [Vector2i(3,4)], "goal": Vector2i(6,0),
+	  "furniture": [ {"cell": Vector2i(5,1), "w": 3}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(3,0), "w": 3} ] },  # 26 moves
+	{ "cat": Vector2i(6,0), "pots": [Vector2i(3,1)], "goals": [Vector2i(6,5)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(5,3), "w": 3} ] },
-	{ "cat": Vector2i(3,5), "pots": [Vector2i(5,4)], "goal": Vector2i(1,0),
+	  "furniture": [ {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(1,5), "w": 2}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(2,0), "w": 3} ] },  # 28 moves
+	{ "cat": Vector2i(0,3), "pots": [Vector2i(4,4)], "goals": [Vector2i(1,0)],
 	  "walls": [],
-	  "furniture": [ {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(5,0), "w": 2}, {"cell": Vector2i(5,5), "w": 2}, {"cell": Vector2i(1,4), "w": 3} ] },
+	  "furniture": [ {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(4,3), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },  # 31 moves
+	{ "cat": Vector2i(0,5), "pots": [Vector2i(5,1)], "goals": [Vector2i(6,5)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(4,2), "w": 2} ] },  # 33 moves
+	{ "cat": Vector2i(0,0), "pots": [Vector2i(6,3)], "goals": [Vector2i(5,2)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(4,4), "w": 3}, {"cell": Vector2i(1,2), "w": 2} ] },  # 34 moves
+	{ "cat": Vector2i(7,1), "pots": [Vector2i(5,3)], "goals": [Vector2i(3,4)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(4,5), "w": 3}, {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(2,3), "w": 2}, {"cell": Vector2i(6,3), "w": 2} ] },  # 36 moves
+	{ "cat": Vector2i(4,3), "pots": [Vector2i(5,4)], "goals": [Vector2i(3,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(1,4), "w": 3}, {"cell": Vector2i(5,5), "w": 2} ] },  # 39 moves
+	{ "cat": Vector2i(2,2), "pots": [Vector2i(5,2), Vector2i(5,3)], "goals": [Vector2i(7,4), Vector2i(0,1)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(3,0), "w": 3}, {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },  # 22 moves
+	{ "cat": Vector2i(2,0), "pots": [Vector2i(6,4), Vector2i(1,4)], "goals": [Vector2i(3,2), Vector2i(7,3)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(1,2), "w": 2}, {"cell": Vector2i(5,1), "w": 3} ] },  # 24 moves
+	{ "cat": Vector2i(0,5), "pots": [Vector2i(5,4), Vector2i(3,4)], "goals": [Vector2i(4,2), Vector2i(7,3)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(3,5), "w": 2} ] },  # 26 moves
+	{ "cat": Vector2i(7,0), "pots": [Vector2i(6,2), Vector2i(6,3)], "goals": [Vector2i(2,1), Vector2i(0,1)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(2,5), "w": 2}, {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(3,0), "w": 2} ] },  # 27 moves
+	{ "cat": Vector2i(1,0), "pots": [Vector2i(3,1), Vector2i(4,1)], "goals": [Vector2i(7,4), Vector2i(5,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(6,3), "w": 2}, {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(5,1), "w": 3}, {"cell": Vector2i(2,4), "w": 2} ] },  # 29 moves
+	{ "cat": Vector2i(5,1), "pots": [Vector2i(3,3), Vector2i(3,4)], "goals": [Vector2i(0,0), Vector2i(3,1)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(3,2), "w": 3} ] },  # 31 moves
+	{ "cat": Vector2i(5,1), "pots": [Vector2i(1,4), Vector2i(1,1)], "goals": [Vector2i(5,5), Vector2i(1,5)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(6,1), "w": 2} ] },  # 33 moves
+	{ "cat": Vector2i(0,5), "pots": [Vector2i(1,4), Vector2i(6,4)], "goals": [Vector2i(5,2), Vector2i(3,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(0,1), "w": 2}, {"cell": Vector2i(3,2), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(5,5), "w": 2} ] },  # 35 moves
+	{ "cat": Vector2i(5,4), "pots": [Vector2i(1,1), Vector2i(2,3)], "goals": [Vector2i(1,5), Vector2i(2,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(3,5), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(6,5), "w": 2} ] },  # 36 moves
+	{ "cat": Vector2i(4,0), "pots": [Vector2i(6,4), Vector2i(1,2)], "goals": [Vector2i(5,0), Vector2i(3,2)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(4,5), "w": 2} ] },  # 38 moves
+	{ "cat": Vector2i(6,3), "pots": [Vector2i(5,1), Vector2i(2,1)], "goals": [Vector2i(6,5), Vector2i(2,4)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(6,0), "w": 2}, {"cell": Vector2i(4,0), "w": 2}, {"cell": Vector2i(3,3), "w": 2}, {"cell": Vector2i(1,3), "w": 2} ] },  # 40 moves
+	{ "cat": Vector2i(1,5), "pots": [Vector2i(4,4), Vector2i(5,4)], "goals": [Vector2i(2,2), Vector2i(1,4)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(2,1), "w": 2}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(3,2), "w": 2} ] },  # 42 moves
+	{ "cat": Vector2i(0,1), "pots": [Vector2i(1,4), Vector2i(3,4)], "goals": [Vector2i(7,0), Vector2i(2,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(2,2), "w": 2}, {"cell": Vector2i(0,5), "w": 2}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(6,2), "w": 2} ] },  # 43 moves
+	{ "cat": Vector2i(0,3), "pots": [Vector2i(3,3), Vector2i(5,3)], "goals": [Vector2i(4,0), Vector2i(3,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,1), "w": 2}, {"cell": Vector2i(5,4), "w": 3}, {"cell": Vector2i(4,5), "w": 3}, {"cell": Vector2i(2,4), "w": 3} ] },  # 45 moves
+	{ "cat": Vector2i(3,4), "pots": [Vector2i(6,3), Vector2i(2,4)], "goals": [Vector2i(2,2), Vector2i(1,2)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,2), "w": 3}, {"cell": Vector2i(1,3), "w": 3}, {"cell": Vector2i(6,1), "w": 2} ] },  # 46 moves
+	{ "cat": Vector2i(6,4), "pots": [Vector2i(2,4), Vector2i(1,0)], "goals": [Vector2i(4,0), Vector2i(0,2)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,2), "w": 2}, {"cell": Vector2i(1,2), "w": 3}, {"cell": Vector2i(0,4), "w": 2} ] },  # 47 moves
+	{ "cat": Vector2i(5,0), "pots": [Vector2i(1,1), Vector2i(1,2)], "goals": [Vector2i(2,4), Vector2i(7,5)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(6,1), "w": 2}, {"cell": Vector2i(3,4), "w": 3}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(2,3), "w": 3} ] },  # 52 moves
+	{ "cat": Vector2i(4,5), "pots": [Vector2i(5,3), Vector2i(5,4)], "goals": [Vector2i(5,1), Vector2i(6,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(4,2), "w": 3}, {"cell": Vector2i(6,5), "w": 2}, {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(0,4), "w": 3} ] },  # 54 moves
+	{ "cat": Vector2i(7,2), "pots": [Vector2i(3,2), Vector2i(3,3)], "goals": [Vector2i(0,0), Vector2i(4,0)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(1,3), "w": 2}, {"cell": Vector2i(4,1), "w": 3}, {"cell": Vector2i(0,2), "w": 2}, {"cell": Vector2i(5,3), "w": 3} ] },  # 56 moves
+	{ "cat": Vector2i(1,5), "pots": [Vector2i(4,1), Vector2i(6,1)], "goals": [Vector2i(7,3), Vector2i(6,4)],
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,0), "w": 3}, {"cell": Vector2i(3,3), "w": 3}, {"cell": Vector2i(2,0), "w": 2} ] },  # 57 moves
 ]
 
 
 var level_index := 0
 var cat_cell: Vector2i
 var pots: Array = []
-var goal: Vector2i
+var goals: Array = []
 var walls: Array = []
 var _tween: Tween
 var moves := 0
@@ -46,6 +119,7 @@ var win_sfx: AudioStreamPlayer
 var fail_sfx: AudioStreamPlayer
 var _prev_cell: Vector2i
 var furniture_sprites: Array = []
+var _history: Array = []          # snapshots for undo (Z)
 
 @onready var cat: AnimatedSprite2D = $Cat
 var pot_sprites: Array = []
@@ -87,10 +161,11 @@ func _load_level(i: int) -> void:
 	var data = LEVELS[i]
 	cat_cell = data["cat"]
 	pots = data["pots"].duplicate()
-	goal = data["goal"]
+	goals = data["goals"].duplicate()
 	walls = data["walls"].duplicate()      # was: walls = data["walls"]]
 	moves = 0
 	solved = false
+	_history.clear()
 	modulate = Color.WHITE
 
 	for s in pot_sprites:
@@ -163,6 +238,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		_load_level(level_index)
 		return
 
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_Z:
+		_undo()
+		return
+
 	var step := Vector2i.ZERO
 	if event.is_action_pressed("ui_right"):   step = Vector2i(1, 0)
 	elif event.is_action_pressed("ui_left"):  step = Vector2i(-1, 0)
@@ -195,6 +274,7 @@ func _try_move(step: Vector2i) -> void:
 		if _blocked(behind) or pots.find(behind) != -1:
 			return
 		pots[pot_index] = behind
+	_history.append({ "cat": cat_cell, "pots": pots.duplicate() })   # for undo
 	_prev_cell = cat_cell
 	cat_cell = target
 	moves += 1
@@ -216,29 +296,42 @@ func _shake(amount: float, time: float) -> void:
 		t.tween_property(self, "position", start + off, time / steps)
 	t.tween_property(self, "position", start, time / steps)
 
+func _undo() -> void:
+	if _history.is_empty():
+		return
+	var snap: Dictionary = _history.pop_back()
+	cat_cell = snap["cat"]
+	pots = snap["pots"]
+	moves = max(0, moves - 1)
+	_snap_positions()
+	_refresh_ui()
+
 func _check_win() -> void:
-	if pots[0] == goal:
-		solved = true
-		win_sfx.play()
-		var winning_pot: Sprite2D = pot_sprites[0]
-		_shake(6.0, 0.25)
-		var t := create_tween()
-		t.tween_property(winning_pot, "scale", Vector2(0.6, 0.6), 0.12)
-		t.tween_property(winning_pot, "scale", Vector2(0.4, 0.4), 0.12)
-		legs_done = level_index + 1
-		modulate = Color(1, 1, 0.7)
-		_update_journey()
-		if level_index + 1 < LEVELS.size():
-			info_label.text = "The cat eats. 🐟  One leg closer…"
-			await get_tree().create_timer(1.0).timeout   # the pause before advancing
-			if solved and level_index + 1 < LEVELS.size():  # still solved? then go
-				_load_level(level_index + 1)
-		else:
-			info_label.text = "The cat eats, and Galata comes into view. 🐾🗼  (R to replay)"
+	for p in pots:
+		if not goals.has(p):
+			return                      # some pot still isn't home
+
+	solved = true
+	win_sfx.play()
+	_shake(6.0, 0.25)
+	var t := create_tween()
+	for s in pot_sprites:               # pop every pot, not just the first
+		t.tween_property(s, "scale", Vector2(0.6, 0.6), 0.12)
+		t.tween_property(s, "scale", Vector2(0.4, 0.4), 0.12)
+	legs_done = level_index + 1
+	modulate = Color(1, 1, 0.7)
+	_update_journey()
+	if level_index + 1 < LEVELS.size():
+		info_label.text = "The cat eats. 🐟  One leg closer…"
+		await get_tree().create_timer(1.0).timeout   # the pause before advancing
+		if solved and level_index + 1 < LEVELS.size():  # still solved? then go
+			_load_level(level_index + 1)
+	else:
+		info_label.text = "The cat eats, and Galata comes into view. 🐾🗼  (R to replay)"
 
 func _refresh_ui() -> void:
 	if not solved:
-		info_label.text = "Level %d / %d    Moves: %d    (R reset)" % [level_index + 1, LEVELS.size(), moves]
+		info_label.text = "Level %d / %d    Moves: %d    (Z undo, R reset)" % [level_index + 1, LEVELS.size(), moves]
 	_update_journey()
 	queue_redraw()
 
@@ -264,6 +357,7 @@ func _cell_to_px(c: Vector2i) -> Vector2:
 	return Vector2(c) * CELL_SIZE + Vector2(CELL_SIZE, CELL_SIZE) * 0.5
 
 func _draw() -> void:
-	# Walls are furniture art now; just the goal tile remains.
-	var g := _cell_to_px(goal) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)
+	# Walls are furniture art now; just the goal tiles remain.
+	for goal in goals:
+		var g := _cell_to_px(goal) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
+		draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)
