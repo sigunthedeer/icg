@@ -114,16 +114,29 @@ func _load_level(i: int) -> void:
 			var wc := Vector2i(c.x + dx, c.y)
 			if not walls.has(wc):
 				walls.append(wc)
-		var spr := Sprite2D.new()                   # one wide image across them
-		spr.texture = load("res://plant_wall.png")
-		var target_w := wdt * CELL_SIZE
-		spr.scale = Vector2(
-			float(wdt * CELL_SIZE) / spr.texture.get_width(),
-			float(CELL_SIZE) / spr.texture.get_height()
-		)
+		var spr := AnimatedSprite2D.new()
+		var frames := SpriteFrames.new()
+		frames.set_animation_loop("default", true)
+		frames.set_animation_speed("default", 2.0)     # gentle 2 fps sway
+		var tex: Texture2D = load("res://plant_wall_sheet.png")
+		var fw := tex.get_width() / 2                   # 2 frames side by side
+		var fh := tex.get_height()
+		for k in 2:
+			var at := AtlasTexture.new()
+			at.atlas = tex
+			at.region = Rect2(k * fw, 0, fw, fh)
+			frames.add_frame("default", at)
+		spr.sprite_frames = frames
+		# Uniform scale — never distort her art. Fit inside the tile footprint.
+		var box := Vector2(wdt * CELL_SIZE, CELL_SIZE)     # the tiles it occupies
+		var art := Vector2(float(fw), float(fh))           # the art's real size
+		var fit: float = min(box.x / art.x, box.y / art.y)
+		spr.scale = Vector2(fit, fit)                      # SAME number both axes
 		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
-		spr.z_index = -1                            # above floor, below cat
+		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
+		spr.z_index = -1
 		add_child(spr)
+		spr.play("default")
 		furniture_sprites.append(spr)
 
 	cat.flip_h = false
