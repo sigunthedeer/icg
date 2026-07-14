@@ -10,20 +10,26 @@ const BG_OFFSET := Vector2(-329, -135)
 # --- LEVELS: the puzzle is DATA. Add or reorder freely. ---
 # Each: where the cat starts, its pots, the goal tile, and the walls.
 const LEVELS := [
-	{ "cat": Vector2i(2,2), "pots": [Vector2i(1,2)], "goal": Vector2i(4,5),
-	  "walls": [Vector2i(0,5), Vector2i(2,0), Vector2i(7,5)],
-	  "furniture": [ {"cell": Vector2i(3,3), "w": 2} ] },
-	{ "cat": Vector2i(4,3), "pots": [Vector2i(3,3)], "goal": Vector2i(6,2),
-	  "walls": [Vector2i(1,1), Vector2i(3,4), Vector2i(4,2), Vector2i(6,3), Vector2i(7,4)] },
-	{ "cat": Vector2i(3,1), "pots": [Vector2i(2,4)], "goal": Vector2i(0,0),
-	  "walls": [Vector2i(0,3), Vector2i(2,0), Vector2i(2,5), Vector2i(4,1), Vector2i(6,4)] },
-	{ "cat": Vector2i(2,0), "pots": [Vector2i(3,2)], "goal": Vector2i(7,2),
-	  "walls": [Vector2i(1,1), Vector2i(3,1), Vector2i(4,0), Vector2i(5,2), Vector2i(7,4)] },
-	{ "cat": Vector2i(1,2), "pots": [Vector2i(2,3)], "goal": Vector2i(7,3),
-	  "walls": [Vector2i(0,5), Vector2i(1,1), Vector2i(2,2), Vector2i(2,5), Vector2i(4,4), Vector2i(5,0), Vector2i(5,3), Vector2i(7,1)] },
-	{ "cat": Vector2i(1,2), "pots": [Vector2i(6,3)], "goal": Vector2i(2,0),
-	  "walls": [Vector2i(0,5), Vector2i(1,4), Vector2i(2,1), Vector2i(3,4), Vector2i(4,0), Vector2i(4,4), Vector2i(5,5), Vector2i(6,2), Vector2i(7,2)] },
+	{ "cat": Vector2i(2,0), "pots": [Vector2i(3,1)], "goal": Vector2i(7,5),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(0,2), "w": 3}, {"cell": Vector2i(2,4), "w": 2}, {"cell": Vector2i(6,2), "w": 2}, {"cell": Vector2i(5,0), "w": 3} ] },
+	{ "cat": Vector2i(4,5), "pots": [Vector2i(2,4)], "goal": Vector2i(7,0),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(5,3), "w": 3}, {"cell": Vector2i(1,0), "w": 3}, {"cell": Vector2i(1,1), "w": 2} ] },
+	{ "cat": Vector2i(2,2), "pots": [Vector2i(3,3)], "goal": Vector2i(1,0),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(0,3), "w": 3}, {"cell": Vector2i(5,4), "w": 3} ] },
+	{ "cat": Vector2i(7,0), "pots": [Vector2i(2,4)], "goal": Vector2i(6,3),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(3,1), "w": 2}, {"cell": Vector2i(0,3), "w": 2}, {"cell": Vector2i(5,4), "w": 2}, {"cell": Vector2i(3,5), "w": 2} ] },
+	{ "cat": Vector2i(3,2), "pots": [Vector2i(3,4)], "goal": Vector2i(6,0),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(2,1), "w": 3}, {"cell": Vector2i(1,5), "w": 3}, {"cell": Vector2i(5,3), "w": 3} ] },
+	{ "cat": Vector2i(3,5), "pots": [Vector2i(5,4)], "goal": Vector2i(1,0),
+	  "walls": [],
+	  "furniture": [ {"cell": Vector2i(3,2), "w": 3}, {"cell": Vector2i(5,0), "w": 2}, {"cell": Vector2i(5,5), "w": 2}, {"cell": Vector2i(1,4), "w": 3} ] },
 ]
+
 
 var level_index := 0
 var cat_cell: Vector2i
@@ -111,7 +117,10 @@ func _load_level(i: int) -> void:
 		var spr := Sprite2D.new()                   # one wide image across them
 		spr.texture = load("res://plant_wall.png")
 		var target_w := wdt * CELL_SIZE
-		spr.scale = Vector2.ONE * (float(target_w) / spr.texture.get_width())
+		spr.scale = Vector2(
+			float(wdt * CELL_SIZE) / spr.texture.get_width(),
+			float(CELL_SIZE) / spr.texture.get_height()
+		)
 		spr.position = _cell_to_px(c) + Vector2((wdt - 1) * CELL_SIZE * 0.5, 0)
 		spr.z_index = -1                            # above floor, below cat
 		add_child(spr)
@@ -234,17 +243,14 @@ func _animate_positions() -> void:         # glide (used on each move)
 		_tween.tween_property(pot_sprites[i], "position", _cell_to_px(pots[i]), MOVE_TIME)
 	# little squash toward the direction of movement
 	var dir := Vector2(cat_cell - _prev_cell)
-	cat.scale = Vector2(0.35, 0.35)   # your normal scale
-	_tween.tween_property(cat, "scale", Vector2(0.4, 0.31), MOVE_TIME * 0.4)
-	_tween.chain().tween_property(cat, "scale", Vector2(0.35, 0.35), MOVE_TIME * 0.6)
+	cat.scale = Vector2(0.6, 0.6)   # your normal scale
+	_tween.tween_property(cat, "scale", Vector2(0.57, 0.44), MOVE_TIME * 0.4)  
+	_tween.chain().tween_property(cat, "scale", Vector2(0.5, 0.5), MOVE_TIME * 0.6)
 
 func _cell_to_px(c: Vector2i) -> Vector2:
 	return Vector2(c) * CELL_SIZE + Vector2(CELL_SIZE, CELL_SIZE) * 0.5
 
 func _draw() -> void:
-	# Grid lines removed — Tu Anh's floor tiles are the grid now.
-	for w in walls:
-		var p := _cell_to_px(w) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-		draw_rect(Rect2(p, Vector2(CELL_SIZE, CELL_SIZE)), Color(0.45, 0.4, 0.42, 0.55), true)
+	# Walls are furniture art now; just the goal tile remains.
 	var g := _cell_to_px(goal) - Vector2(CELL_SIZE, CELL_SIZE) * 0.5
-	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.35), true)
+	draw_rect(Rect2(g, Vector2(CELL_SIZE, CELL_SIZE)), Color(1, 0.85, 0.3, 0.3), true)
